@@ -1,0 +1,19 @@
+# ==============================================================================
+# converse-guard — LiteLLM Routing Configuration
+# ==============================================================================
+# Maps client model alias 'bedrock-model' to your upstream Amazon Bedrock target.
+# Upstream target and AWS region are dynamically resolved from environment variables.
+# ==============================================================================
+
+model_list:
+  - model_name: bedrock-model
+    litellm_params:
+      model: os.environ/BEDROCK_MODEL_ID
+      aws_region_name: os.environ/AWS_REGION_NAME
+
+litellm_settings:
+  callbacks:
+    - native_input.proxy_handler_instance
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

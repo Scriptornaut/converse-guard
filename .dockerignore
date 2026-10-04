@@ -1,0 +1,32 @@
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.token
+credentials
+secrets
+
+# Git metadata
+.git
+.gitignore
+.dockerignore
+README.md
+
+# Python and test artifacts
+__pycache__
+*.py[cod]
+*$py.class
+.pytest_cache
+test_*.py
+requirements-test.txt
+
+# Virtual environments
+.venv
+venv
+env
+
+# Local logs and output
+*.log
+*.out

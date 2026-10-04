@@ -1,0 +1,35 @@
+
+services:
+  converse-guard:
+    build: .
+    image: converse-guard:local
+    container_name: converse-guard
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4000:4000"
+    environment:
+      # Gateway Core Settings
+      - LITELLM_MASTER_KEY
+      - LITELLM_LOCAL_MODEL_COST_MAP=True
+
+      # Amazon Bedrock Settings
+      - BEDROCK_MODEL_ID
+      - AWS_REGION_NAME=${AWS_REGION_NAME:-us-east-1}
+
+      # Optional AWS Credentials (passed only when explicitly set in .env or environment)
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_SESSION_TOKEN
+
+      # Zscaler AI Guard Required Settings
+      - AIGUARD_URL
+      - AIGUARD_API_KEY
+      - AIGUARD_POLICY_ID
+      - AIGUARD_STREAM_MODE=${AIGUARD_STREAM_MODE:-batch}
+      - AIGUARD_BATCH_CHARS=${AIGUARD_BATCH_CHARS:-256}
+
+      # Zscaler AI Guard Optional Tuning Settings
+      - AIGUARD_TIMEOUT_SECONDS
+      - AIGUARD_MAX_CONTENT_BYTES
+      - AIGUARD_MAX_FRAME_BYTES
+      - AIGUARD_MAX_PENDING_BYTES

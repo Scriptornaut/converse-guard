@@ -1,0 +1,39 @@
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.token
+credentials
+secrets
+
+# Python caches and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Test runners and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Editor and OS metadata
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Local build artifacts
+*.out
+dist/
+build/
+*.egg-info/
