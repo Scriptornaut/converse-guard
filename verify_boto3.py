@@ -40,7 +40,7 @@ def main():
             endpoint_url=args.endpoint,
             aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID", "dummy"),
             aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY", "dummy"),
-            config=Config(connect_timeout=5, read_timeout=60, retries={"max_attempts": 1})
+            config=Config(connect_timeout=5, read_timeout=60, retries={"max_attempts": int(os.getenv("BOTO_MAX_ATTEMPTS", "2"))})
         )
 
         print(f"Connecting to Gateway: {args.endpoint}")

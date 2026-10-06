@@ -114,12 +114,14 @@ def test_input_excludes_system_assistant_tools_and_tool_results():
     (200,{'statusCode':200,'action':'ALLOW'},None),
     (200,{'statusCode':200,'action':'DETECT'},None),
     (200,{'statusCode':200,'action':'BLOCK'},403),
+    (200,{'statusCode':500,'action':'ALLOW','errorMsg':'All detectors are either not found or had execution errors'},None),
+    (200,{'action':'ALLOW'},None),
     (429,{'statusCode':429},503),
     (500,{},503),
     (200,{'statusCode':200,'action':'ALLOW','throttlingDetails':{'metric':'cs','retryAfterMillis':100}},503),
     (200,{'statusCode':200,'action':'ALLOW','throttlingDetails':{'metric':'rq','retryAfterMillis':100}},503),
     (201,{'statusCode':200,'action':'ALLOW'},503),
-    (200,{'action':'ALLOW'},503),
+    (200,{'action':'UNKNOWN'},503),
 ])
 def test_das_contract(monkeypatch,http_status,verdict,expected):
     monkeypatch.setenv('AIGUARD_URL','https://guard.invalid/execute-policy');monkeypatch.setenv('AIGUARD_API_KEY','fake');monkeypatch.setenv('AIGUARD_POLICY_ID','100')

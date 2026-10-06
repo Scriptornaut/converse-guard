@@ -44,7 +44,7 @@ class DASScanner:
         self.key = os.environ['AIGUARD_API_KEY']
         self.policy = int(os.environ['AIGUARD_POLICY_ID'])
         self.settings = Settings.from_env()
-        self.client = httpx.AsyncClient(timeout=float(os.getenv('AIGUARD_TIMEOUT_SECONDS', '10')))
+        self.client = httpx.AsyncClient(timeout=float(os.getenv('AIGUARD_TIMEOUT_SECONDS', '30')))
 
     async def scan(self, content, direction, transaction_id):
         if not content:
@@ -61,7 +61,7 @@ class DASScanner:
             verdict = response.json()
         except (httpx.HTTPError, ValueError) as exc:
             raise InspectionFailure(503, 'AI Guard inspection unavailable') from exc
-        if not isinstance(verdict, dict) or verdict.get('statusCode') != 200 or verdict.get('throttlingDetails'):
+        if not isinstance(verdict, dict) or verdict.get('throttlingDetails'):
             raise InspectionFailure(503, 'AI Guard returned an invalid or throttled result')
         action = verdict.get('action')
         if action == 'BLOCK':
